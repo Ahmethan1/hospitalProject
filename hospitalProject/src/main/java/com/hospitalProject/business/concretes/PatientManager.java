@@ -10,20 +10,21 @@ import com.hospitalProject.business.dtos.patient.response.UpdatedPatientResponse
 import com.hospitalProject.core.utility.mapper.PatientMapper;
 import com.hospitalProject.dataAccess.PatientRepository;
 import com.hospitalProject.entity.Patient;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PatientManager implements PatientService {
     private final PatientMapper patientMapper;
     private final PatientRepository patientRepository;
+
     @Override
     public CreatedPatientResponse add(CreatePatientRequest createPatientRequest) {
         Patient patient = this.patientMapper.createRequestPatientToPatientEntity(createPatientRequest);
@@ -43,22 +44,24 @@ public class PatientManager implements PatientService {
     }
 
     @Override
-    public List<GetAllPatientResponse> getAll() {
-        List<Patient> patients = this.patientRepository.findAll();
+    public Page<GetAllPatientResponse> getAll(Pageable pageable) {
+        Page<Patient> patients = this.patientRepository.findAllByDeletedDateIsNullOrderByIdAsc(pageable);
 
-        return patients.stream().map(this.patientMapper::patientEntityToGetAllPatientResponse).collect(Collectors.toList());
+        return patients.map(this.patientMapper::patientEntityToGetAllPatientResponse);
     }
 
     @Override
     public GetByIdPatientResponse getById(UUID id) {
-        Patient patient = this.patientRepository.findById(id).orElse(null);
+        Patient patient = this.patientRepository.findByIdAndDeletedDateIsNull(id)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: "));
         return this.patientMapper.patientEntityToGetByIdPatientResponse(patient);
     }
 
     @Override
     public void delete(UUID id) {
-        Optional<Patient> patient = this.patientRepository.findById(id);
-        this.patientRepository.deleteById(id);
+        Patient patient = this.patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+        patient.setDeletedDate(LocalDateTime.now());
+        this.patientRepository.save(patient);
 
     }
 }

@@ -11,6 +11,8 @@ import com.hospitalProject.core.utility.mapper.DoctorMapper;
 import com.hospitalProject.dataAccess.DoctorRepository;
 import com.hospitalProject.entity.Doctor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,11 +38,10 @@ public class DoctorManager implements DoctorService {
     }
 
     @Override
-    public List<GetAllDoctorResponse> getAll() {
-        List<Doctor> doctorList = this.doctorRepository.findAll();
+    public Page<GetAllDoctorResponse> getAll(Pageable pageable) {
+        Page<Doctor> doctorList = this.doctorRepository.findAllByOrderByIdAsc(pageable);
 
-        return doctorList.stream()
-                .map(this.doctorMapper::doctorEntityToGetAllDoctorResponse).collect(Collectors.toList());
+        return doctorList.map(this.doctorMapper::doctorEntityToGetAllDoctorResponse);
     }
 
     @Override

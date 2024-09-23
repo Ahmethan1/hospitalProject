@@ -9,6 +9,9 @@ import com.hospitalProject.business.dtos.doctor.response.GetByIdDoctorResponse;
 import com.hospitalProject.business.dtos.doctor.response.UpdatedDoctorResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +32,9 @@ public class DoctorController {
 
     @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
-    public List<GetAllDoctorResponse> getAll() {
-        return this.doctorService.getAll();
+    public Page<GetAllDoctorResponse> getAll(@RequestParam int page, @RequestParam int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return this.doctorService.getAll(pageable);
     }
 
     @GetMapping("/getById/{id}")
