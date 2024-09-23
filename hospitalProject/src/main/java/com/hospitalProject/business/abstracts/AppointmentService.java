@@ -7,12 +7,13 @@ import com.hospitalProject.business.dtos.appointment.response.GetAllAppointmentR
 import com.hospitalProject.business.dtos.appointment.response.GetByIdAppointmentResponse;
 import com.hospitalProject.business.dtos.appointment.response.UpdatedAppointmentResponse;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AppointmentService {
     CreatedAppoinmentResponse add(CreateAppointmentRequest createAppointmentRequest);
     UpdatedAppointmentResponse update(UpdateAppointmentRequest updateAppointmentRequest);
     GetByIdAppointmentResponse getById(UUID id);
-    GetAllAppointmentResponse getAll();
+    List<GetAllAppointmentResponse> getAll();
     void delete(UUID id);
 }

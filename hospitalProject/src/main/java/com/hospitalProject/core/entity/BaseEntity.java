@@ -27,6 +27,6 @@ public class BaseEntity<T> {
 
     public BaseEntity(){
         this.createdDate = LocalDateTime.now();
-        this.updatedDate = LocalDateTime.now();
+
     }
 }

@@ -8,7 +8,6 @@ import com.hospitalProject.business.dtos.doctor.response.GetAllDoctorResponse;
 import com.hospitalProject.business.dtos.doctor.response.GetByIdDoctorResponse;
 import com.hospitalProject.business.dtos.doctor.response.UpdatedDoctorResponse;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,30 +23,30 @@ public class DoctorController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public CreatedDoctorResponse add(@Valid @RequestBody CreateDoctorRequest createDoctorRequest){
+    public CreatedDoctorResponse add(@Valid @RequestBody CreateDoctorRequest createDoctorRequest) {
         return this.doctorService.add(createDoctorRequest);
     }
 
     @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
-    public List<GetAllDoctorResponse> getAll(){
+    public List<GetAllDoctorResponse> getAll() {
         return this.doctorService.getAll();
     }
 
     @GetMapping("/getById/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public GetByIdDoctorResponse getById(@PathVariable UUID id){
+    public GetByIdDoctorResponse getById(@PathVariable UUID id) {
         return this.doctorService.getById(id);
     }
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-    public UpdatedDoctorResponse update(@Valid @RequestBody UpdateDoctorRequest updateDoctorRequest){
+    public UpdatedDoctorResponse update(@Valid @RequestBody UpdateDoctorRequest updateDoctorRequest) {
         return this.doctorService.update(updateDoctorRequest);
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public void delete(@PathVariable UUID id){
+    public void delete(@PathVariable UUID id) {
         this.doctorService.delete(id);
     }
 }

@@ -21,11 +21,11 @@ public class Appointment extends BaseEntity<UUID> {
     private LocalDateTime appointmentDate;
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 }

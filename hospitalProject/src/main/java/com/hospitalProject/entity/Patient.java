@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -26,5 +27,5 @@ public class Patient extends BaseEntity<UUID> {
     private String password;
 
     @OneToMany(mappedBy = "patient")
-    private List<Appointment> appointments =new ArrayList<>();
+    private List<Appointment> appointments = new ArrayList<>();
 }

@@ -13,7 +13,6 @@ import com.hospitalProject.entity.Doctor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +24,10 @@ import java.util.stream.Collectors;
 public class DoctorManager implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
+
     @Override
     public CreatedDoctorResponse add(CreateDoctorRequest createDoctorRequest) {
-        Doctor doctor =this.doctorMapper.createDoctorRequestToDoctorEntity(createDoctorRequest);
+        Doctor doctor = this.doctorMapper.createDoctorRequestToDoctorEntity(createDoctorRequest);
         doctor.setCreatedDate(LocalDateTime.now());
 
         Doctor savedDoctor = this.doctorRepository.save(doctor);
@@ -40,7 +40,7 @@ public class DoctorManager implements DoctorService {
         List<Doctor> doctorList = this.doctorRepository.findAll();
 
         return doctorList.stream()
-                .map(this.doctorMapper :: doctorEntityToGetAllDoctorResponse).collect(Collectors.toList());
+                .map(this.doctorMapper::doctorEntityToGetAllDoctorResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class DoctorManager implements DoctorService {
         Doctor doctor = this.doctorMapper.updateDoctorRequestToDoctorEntity(updateDoctorRequest);
         doctor.setUpdatedDate(LocalDateTime.now());
 
-        Doctor updatedDoctor =this.doctorRepository.save(doctor);
+        Doctor updatedDoctor = this.doctorRepository.save(doctor);
         return this.doctorMapper.doctorEntityToUpdatedDoctorResponse(updatedDoctor);
     }
 

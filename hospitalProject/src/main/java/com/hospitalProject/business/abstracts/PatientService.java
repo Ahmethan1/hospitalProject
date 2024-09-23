@@ -7,12 +7,13 @@ import com.hospitalProject.business.dtos.patient.response.GetAllPatientResponse;
 import com.hospitalProject.business.dtos.patient.response.GetByIdPatientResponse;
 import com.hospitalProject.business.dtos.patient.response.UpdatedPatientResponse;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface PatientService {
     CreatedPatientResponse add(CreatePatientRequest createPatientRequest);
     UpdatedPatientResponse update(UpdatePatientRequest updatePatientRequest);
-    GetAllPatientResponse getAll();
+    List<GetAllPatientResponse> getAll();
     GetByIdPatientResponse getById(UUID id);
     void delete(UUID id);
 }
