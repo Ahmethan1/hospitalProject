@@ -2,11 +2,9 @@ package com.hospitalProject.apiController;
 
 import com.hospitalProject.business.abstracts.DoctorService;
 import com.hospitalProject.business.dtos.doctor.request.CreateDoctorRequest;
+import com.hospitalProject.business.dtos.doctor.request.LoginDoctorRequest;
 import com.hospitalProject.business.dtos.doctor.request.UpdateDoctorRequest;
-import com.hospitalProject.business.dtos.doctor.response.CreatedDoctorResponse;
-import com.hospitalProject.business.dtos.doctor.response.GetAllDoctorResponse;
-import com.hospitalProject.business.dtos.doctor.response.GetByIdDoctorResponse;
-import com.hospitalProject.business.dtos.doctor.response.UpdatedDoctorResponse;
+import com.hospitalProject.business.dtos.doctor.response.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -52,5 +50,11 @@ public class DoctorController {
     @DeleteMapping("/deleteById/{id}")
     public void delete(@PathVariable UUID id) {
         this.doctorService.delete(id);
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public LoginDoctorResponse login(@RequestBody LoginDoctorRequest loginDoctorRequest){
+        return this.doctorService.login(loginDoctorRequest);
     }
 }

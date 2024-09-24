@@ -1,5 +1,6 @@
 package com.hospitalProject.dataAccess;
 
+import com.hospitalProject.entity.Doctor;
 import com.hospitalProject.entity.Patient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,4 +13,8 @@ public interface PatientRepository extends JpaRepository<Patient, UUID> {
     Page<Patient> findAllByDeletedDateIsNullOrderByIdAsc(Pageable pageable);
 
     Optional<Patient> findByIdAndDeletedDateIsNull(UUID id);
+
+    Optional<Patient> findByTcNo(String tcNo);
+    Optional<Patient> findByTcNoAndDeletedDateIsNull(String tcNo);
+
 }

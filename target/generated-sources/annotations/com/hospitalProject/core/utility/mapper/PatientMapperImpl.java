@@ -5,6 +5,7 @@ import com.hospitalProject.business.dtos.patient.request.UpdatePatientRequest;
 import com.hospitalProject.business.dtos.patient.response.CreatedPatientResponse;
 import com.hospitalProject.business.dtos.patient.response.GetAllPatientResponse;
 import com.hospitalProject.business.dtos.patient.response.GetByIdPatientResponse;
+import com.hospitalProject.business.dtos.patient.response.LoginPatientResponse;
 import com.hospitalProject.business.dtos.patient.response.UpdatedPatientResponse;
 import com.hospitalProject.entity.Patient;
 import javax.annotation.processing.Generated;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-09-22T20:13:09+0300",
+    date = "2024-09-24T16:49:29+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -113,5 +114,21 @@ public class PatientMapperImpl implements PatientMapper {
         getByIdPatientResponse.setLastName( patient.getLastName() );
 
         return getByIdPatientResponse;
+    }
+
+    @Override
+    public LoginPatientResponse patientEntityToLoginPatientResponse(Patient patient) {
+        if ( patient == null ) {
+            return null;
+        }
+
+        LoginPatientResponse loginPatientResponse = new LoginPatientResponse();
+
+        loginPatientResponse.setId( patient.getId() );
+        loginPatientResponse.setTcNo( patient.getTcNo() );
+        loginPatientResponse.setFirstName( patient.getFirstName() );
+        loginPatientResponse.setLastName( patient.getLastName() );
+
+        return loginPatientResponse;
     }
 }

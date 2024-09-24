@@ -1,10 +1,12 @@
 package com.hospitalProject.core.utility.mapper;
 
 import com.hospitalProject.business.dtos.doctor.request.CreateDoctorRequest;
+import com.hospitalProject.business.dtos.doctor.request.LoginDoctorRequest;
 import com.hospitalProject.business.dtos.doctor.request.UpdateDoctorRequest;
 import com.hospitalProject.business.dtos.doctor.response.CreatedDoctorResponse;
 import com.hospitalProject.business.dtos.doctor.response.GetAllDoctorResponse;
 import com.hospitalProject.business.dtos.doctor.response.GetByIdDoctorResponse;
+import com.hospitalProject.business.dtos.doctor.response.LoginDoctorResponse;
 import com.hospitalProject.business.dtos.doctor.response.UpdatedDoctorResponse;
 import com.hospitalProject.entity.Doctor;
 import javax.annotation.processing.Generated;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-09-22T19:42:03+0300",
+    date = "2024-09-24T16:27:10+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -92,6 +94,7 @@ public class DoctorMapperImpl implements DoctorMapper {
         getAllDoctorResponse.setId( doctor.getId() );
         getAllDoctorResponse.setFirstName( doctor.getFirstName() );
         getAllDoctorResponse.setLastName( doctor.getLastName() );
+        getAllDoctorResponse.setRegistrationNumber( doctor.getRegistrationNumber() );
 
         return getAllDoctorResponse;
     }
@@ -110,5 +113,34 @@ public class DoctorMapperImpl implements DoctorMapper {
         getByIdDoctorResponse.setRegistrationNumber( doctor.getRegistrationNumber() );
 
         return getByIdDoctorResponse;
+    }
+
+    @Override
+    public Doctor loginDoctorRequestToDoctorEntity(LoginDoctorRequest loginDoctorRequest) {
+        if ( loginDoctorRequest == null ) {
+            return null;
+        }
+
+        Doctor doctor = new Doctor();
+
+        doctor.setRegistrationNumber( loginDoctorRequest.getRegistrationNumber() );
+        doctor.setPassword( loginDoctorRequest.getPassword() );
+
+        return doctor;
+    }
+
+    @Override
+    public LoginDoctorResponse doctorEntityToLoginDoctorResponse(Doctor doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+
+        LoginDoctorResponse loginDoctorResponse = new LoginDoctorResponse();
+
+        loginDoctorResponse.setRegistrationNumber( doctor.getRegistrationNumber() );
+        loginDoctorResponse.setName( doctor.getFirstName() );
+        loginDoctorResponse.setId( doctor.getId() );
+
+        return loginDoctorResponse;
     }
 }

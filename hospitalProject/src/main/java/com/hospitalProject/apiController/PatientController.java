@@ -2,11 +2,9 @@ package com.hospitalProject.apiController;
 
 import com.hospitalProject.business.abstracts.PatientService;
 import com.hospitalProject.business.dtos.patient.request.CreatePatientRequest;
+import com.hospitalProject.business.dtos.patient.request.LoginPatientRequest;
 import com.hospitalProject.business.dtos.patient.request.UpdatePatientRequest;
-import com.hospitalProject.business.dtos.patient.response.CreatedPatientResponse;
-import com.hospitalProject.business.dtos.patient.response.GetAllPatientResponse;
-import com.hospitalProject.business.dtos.patient.response.GetByIdPatientResponse;
-import com.hospitalProject.business.dtos.patient.response.UpdatedPatientResponse;
+import com.hospitalProject.business.dtos.patient.response.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,7 +30,7 @@ public class PatientController {
     @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
     public Page<GetAllPatientResponse> getAll(@RequestParam int page, @RequestParam int size) {
-        Pageable pageable = PageRequest.of(page,size);
+        Pageable pageable = PageRequest.of(page, size);
         return this.patientService.getAll(pageable);
     }
 
@@ -53,4 +50,12 @@ public class PatientController {
     public void delete(@PathVariable UUID id) {
         this.patientService.delete(id);
     }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public LoginPatientResponse login(@RequestBody LoginPatientRequest loginPatientRequest){
+        return this.patientService.login(loginPatientRequest);
+    }
+
+
 }

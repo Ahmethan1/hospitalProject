@@ -15,6 +15,6 @@ public class UpdatedAppointmentResponse {
     private UUID id;
     private LocalDateTime appointmentDate;
     private String status;
-    private String doctorFirstName;
-    private String patientFirstName;
+    private UUID doctorId;
+    private UUID patientId;
 }

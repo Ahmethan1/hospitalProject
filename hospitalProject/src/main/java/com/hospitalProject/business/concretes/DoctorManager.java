@@ -2,11 +2,11 @@ package com.hospitalProject.business.concretes;
 
 import com.hospitalProject.business.abstracts.DoctorService;
 import com.hospitalProject.business.dtos.doctor.request.CreateDoctorRequest;
+import com.hospitalProject.business.dtos.doctor.request.LoginDoctorRequest;
 import com.hospitalProject.business.dtos.doctor.request.UpdateDoctorRequest;
-import com.hospitalProject.business.dtos.doctor.response.CreatedDoctorResponse;
-import com.hospitalProject.business.dtos.doctor.response.GetAllDoctorResponse;
-import com.hospitalProject.business.dtos.doctor.response.GetByIdDoctorResponse;
-import com.hospitalProject.business.dtos.doctor.response.UpdatedDoctorResponse;
+import com.hospitalProject.business.dtos.doctor.response.*;
+import com.hospitalProject.business.messages.DoctorMessages;
+import com.hospitalProject.core.utility.exceptions.types.BusinessException;
 import com.hospitalProject.core.utility.mapper.DoctorMapper;
 import com.hospitalProject.dataAccess.DoctorRepository;
 import com.hospitalProject.entity.Doctor;
@@ -16,10 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +27,8 @@ public class DoctorManager implements DoctorService {
 
     @Override
     public CreatedDoctorResponse add(CreateDoctorRequest createDoctorRequest) {
+        this.checkIfDoctorExistByRegistrationNumber(createDoctorRequest.getRegistrationNumber());
+
         Doctor doctor = this.doctorMapper.createDoctorRequestToDoctorEntity(createDoctorRequest);
         doctor.setCreatedDate(LocalDateTime.now());
 
@@ -39,13 +39,14 @@ public class DoctorManager implements DoctorService {
 
     @Override
     public Page<GetAllDoctorResponse> getAll(Pageable pageable) {
-        Page<Doctor> doctorList = this.doctorRepository.findAllByOrderByIdAsc(pageable);
+        Page<Doctor> doctorList = this.doctorRepository.findAllByDeletedDateIsNullOrderByIdAsc(pageable);
 
         return doctorList.map(this.doctorMapper::doctorEntityToGetAllDoctorResponse);
     }
 
     @Override
     public UpdatedDoctorResponse update(UpdateDoctorRequest updateDoctorRequest) {
+        this.checkIfDoctorExists(updateDoctorRequest.getId());
         Doctor doctor = this.doctorMapper.updateDoctorRequestToDoctorEntity(updateDoctorRequest);
         doctor.setUpdatedDate(LocalDateTime.now());
 
@@ -60,11 +61,36 @@ public class DoctorManager implements DoctorService {
     }
 
     @Override
+    public LoginDoctorResponse login(LoginDoctorRequest loginDoctorRequest) {
+        Doctor doctor = this.doctorRepository.findByRegistrationNumberAndDeletedDateIsNull(loginDoctorRequest.getRegistrationNumber())
+                .orElseThrow(()-> new BusinessException(DoctorMessages.INVALID_PASSWORD));
+
+        if (!doctor.getPassword().equals(loginDoctorRequest.getPassword())){
+            throw new BusinessException(DoctorMessages.INVALID_PASSWORD);
+        }
+        return this.doctorMapper.doctorEntityToLoginDoctorResponse(doctor);
+    }
+
+    @Override
     public void delete(UUID id) {
-        Optional<Doctor> doctor = this.doctorRepository.findById(id);
+        Doctor doctor = this.doctorRepository.findByIdAndDeletedDateIsNull(id).orElseThrow(() -> new BusinessException(DoctorMessages.DOCTOR_ALREADY_DELETED));
+        doctor.setDeletedDate(LocalDateTime.now());
+        this.doctorRepository.save(doctor);
 
-        this.doctorRepository.deleteById(id);
+    }
 
+    private void checkIfDoctorExists(UUID id) {
+        Optional<Doctor> doctor = this.doctorRepository.findByIdAndDeletedDateIsNull(id);
+        if (doctor.isEmpty()) {
+            throw new BusinessException(DoctorMessages.DOCTOR_ID_NOT_FOUND);
+        }
+    }
+
+    private void checkIfDoctorExistByRegistrationNumber(String registrationNumber) {
+        Optional<Doctor> doctor = this.doctorRepository.findByRegistrationNumber(registrationNumber);
+        if (doctor.isPresent()) {
+            throw new BusinessException(DoctorMessages.DOCTOR_ALREADY_EXIST);
+        }
     }
 
 
