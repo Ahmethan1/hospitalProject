@@ -15,6 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UpdateDoctorRequest {
+    private UUID id;
     @NotBlank(message = "First name cannot be empty")
     @Pattern(regexp = "^[^0-9]+$", message = "First name cannot contain numbers")
     private String firstName;

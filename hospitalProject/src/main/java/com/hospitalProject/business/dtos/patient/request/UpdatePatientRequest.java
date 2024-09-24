@@ -14,6 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UpdatePatientRequest {
+    private UUID id;
     @NotBlank(message = "TC No cannot be empty")
     @Pattern(regexp = "^[0-9]{11}$", message = "TC No must be 11 digits long and contain only numbers")
     private String tcNo;

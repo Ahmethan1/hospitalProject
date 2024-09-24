@@ -8,11 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class CreateDoctorRequest {
+
     @NotBlank(message = "First name cannot be empty")
     @Pattern(regexp = "^[^0-9]+$", message = "First name cannot contain numbers")
     private String firstName;
