@@ -34,7 +34,6 @@ public class AppointmentManager implements AppointmentService {
     @Override
     public CreatedAppoinmentResponse add(CreateAppointmentRequest createAppointmentRequest) {
         this.checkIfDoctorExists(createAppointmentRequest.getDoctorId());
-        this.checkIfPatientExists(createAppointmentRequest.getPatientId());
         this.checkIfAppointmentExists(createAppointmentRequest.getAppointmentDate(), createAppointmentRequest.getDoctorId());
 
         Appointment appointment = this.appointmentMapper.createRequestAppointmentToAppointmentEntity(createAppointmentRequest);
@@ -47,7 +46,6 @@ public class AppointmentManager implements AppointmentService {
     @Override
     public UpdatedAppointmentResponse update(UpdateAppointmentRequest updateAppointmentRequest) {
         this.checkIfAppointmentExists(updateAppointmentRequest.getId());
-        //this.checkIfPatientExists(updateAppointmentRequest.getPatientId());
         this.checkIfDoctorExists(updateAppointmentRequest.getDoctorId());
         this.checkIfAppointmentExists(updateAppointmentRequest.getAppointmentDate(), updateAppointmentRequest.getDoctorId());
 
