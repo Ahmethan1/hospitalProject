@@ -5,7 +5,7 @@ spring:
   application:
     name: hospitalService
   datasource:
-    url: jdbc:postgresql://localhost:5432/hospitalDb
+    url: jdbc:postgresql://db:5432/hospitalDb # db, localhost
     username: myuser
     password: mypassword
   jpa:
