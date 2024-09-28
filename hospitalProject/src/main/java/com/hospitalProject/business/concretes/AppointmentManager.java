@@ -39,6 +39,7 @@ public class AppointmentManager implements AppointmentService {
         Appointment appointment = this.appointmentMapper.createRequestAppointmentToAppointmentEntity(createAppointmentRequest);
         appointment.setCreatedDate(LocalDateTime.now());
 
+
         Appointment savedAppointment = this.appointmentRepository.save(appointment);
         return this.appointmentMapper.appointmentEntityToCreatedAppointmentResponse(savedAppointment);
     }
@@ -102,6 +103,9 @@ public class AppointmentManager implements AppointmentService {
             throw new BusinessException(AppointmentMessages.APPOINTMENT_ALREADY_EXIST);
         }
     }
+
+
+
 
 
 }

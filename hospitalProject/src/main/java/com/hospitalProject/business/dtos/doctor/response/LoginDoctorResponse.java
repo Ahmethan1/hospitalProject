@@ -13,6 +13,7 @@ import java.util.UUID;
 @Setter
 public class LoginDoctorResponse {
     private UUID id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String registrationNumber;
 }

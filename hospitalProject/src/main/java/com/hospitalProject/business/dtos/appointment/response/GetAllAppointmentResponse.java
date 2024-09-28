@@ -15,6 +15,12 @@ public class GetAllAppointmentResponse {
     private UUID id;
     private LocalDateTime appointmentDate;
     private String status;
+    private String firstName;
+    private String lastName;
     private UUID doctorId;
+    private String doctorFirstName;
+    private String doctorLastName;
     private UUID patientId;
+    private String tcNo;
+
 }

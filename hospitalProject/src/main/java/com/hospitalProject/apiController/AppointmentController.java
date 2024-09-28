@@ -21,6 +21,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/appointmentservice/api/v1/appointment")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AppointmentController {
     private final AppointmentService appointmentService;
 
@@ -50,6 +51,7 @@ public class AppointmentController {
     }
 
     @DeleteMapping("/deleteById/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable UUID id) {
         this.appointmentService.delete(id);
     }

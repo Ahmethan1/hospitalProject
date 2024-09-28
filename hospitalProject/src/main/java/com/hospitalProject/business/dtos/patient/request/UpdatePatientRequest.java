@@ -16,20 +16,17 @@ import java.util.UUID;
 public class UpdatePatientRequest {
     private UUID id;
     @NotBlank(message = "TC No cannot be empty")
-    @Pattern(regexp = "^[0-9]{11}$", message = "TC No must be 11 digits long and contain only numbers")
+    @Pattern(regexp = "^[0-9]{11}$", message = "TC No must be exactly 11 digits long and contain only numbers")
     private String tcNo;
 
     @NotBlank(message = "First name cannot be empty")
-    @Pattern(regexp = "^[^0-9]+$", message = "First name cannot contain numbers")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "First name can only contain letters")
     private String firstName;
 
     @NotBlank(message = "Last name cannot be empty")
-    @Pattern(regexp = "^[^0-9]+$", message = "Last name cannot contain numbers")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Last name can only contain letters")
     private String lastName;
 
-    @NotBlank(message = "Password cannot be empty")
-    @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters long")
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$",
-            message = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character")
+
     private String password;
 }

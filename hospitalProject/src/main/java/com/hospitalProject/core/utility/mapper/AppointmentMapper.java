@@ -23,6 +23,15 @@ public interface AppointmentMapper {
     Appointment updateRequestAppointmentToAppointmentEntity(UpdateAppointmentRequest updateAppointmentRequest);
     UpdatedAppointmentResponse appointmentEntityToUpdatedAppointmentResponse(Appointment appointment);
 
+
     GetByIdAppointmentResponse appointmentEntityToGetByIdAppointmentResponse(Appointment appointment);
+    @Mapping(source = "patient.firstName", target = "firstName")
+    @Mapping(source = "patient.lastName", target = "lastName")
+    @Mapping(source ="appointment.id" ,target = "id")
+    @Mapping(source = "patient.tcNo",target = "tcNo")
+    @Mapping(source = "doctor.id", target = "doctorId")
+    @Mapping(source = "patient.id", target = "patientId")
+    @Mapping(source = "doctor.firstName",target = "doctorFirstName")
+    @Mapping(source = "doctor.lastName",target = "doctorLastName")
     GetAllAppointmentResponse appoinmentEntityToGetAllAppointmentResponse(Appointment appointment);
 }

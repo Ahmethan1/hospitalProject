@@ -16,4 +16,5 @@ public class GetAllPatientResponse {
     private String firstName;
     private String lastName;
 
+
 }

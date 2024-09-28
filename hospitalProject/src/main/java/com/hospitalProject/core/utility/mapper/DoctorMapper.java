@@ -22,7 +22,7 @@ public interface DoctorMapper {
 
     Doctor loginDoctorRequestToDoctorEntity(LoginDoctorRequest loginDoctorRequest);
     @Mapping(source = "doctor.registrationNumber", target = "registrationNumber")
-    @Mapping(source = "doctor.firstName" , target = "name")
+    //Maplemesse burayı eski haline dönder
     LoginDoctorResponse doctorEntityToLoginDoctorResponse(Doctor doctor);
 
 }

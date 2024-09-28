@@ -14,4 +14,5 @@ public class UpdatedDoctorResponse {
     private String lastName;
     private String registrationNumber;
 
+
 }

@@ -18,6 +18,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/patientservice/api/v1/patient")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PatientController {
     private final PatientService patientService;
 
@@ -47,6 +48,7 @@ public class PatientController {
     }
 
     @DeleteMapping("/deleteById/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable UUID id) {
         this.patientService.delete(id);
     }

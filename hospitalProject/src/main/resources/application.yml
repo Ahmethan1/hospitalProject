@@ -14,8 +14,21 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-      javax:
+        # Burayı güncelledik
+        validation:
+          mode: none # Değiştirilecek
+      jakarta:
         persistence:
           validation:
-            mode: none
+            mode: none # Burayı ekliyoruz
     show-sql: true
+  web:
+    cors:
+      allow-credentials: true
+      allowed-origins:
+        - http://localhost:5173
+      allowed-methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE

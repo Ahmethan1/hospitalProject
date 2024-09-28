@@ -16,6 +16,7 @@ public interface PatientMapper {
     Patient updateRequestPatientToPatientEntity(UpdatePatientRequest updatePatientRequest);
     UpdatedPatientResponse patientEntityToUpdatedPatientResponse(Patient patient);
 
+
     GetAllPatientResponse patientEntityToGetAllPatientResponse(Patient patient);
     GetByIdPatientResponse patientEntityToGetByIdPatientResponse(Patient patient);
 
