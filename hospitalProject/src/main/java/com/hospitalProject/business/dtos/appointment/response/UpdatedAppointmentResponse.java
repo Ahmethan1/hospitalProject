@@ -14,7 +14,6 @@ import java.util.UUID;
 public class UpdatedAppointmentResponse {
     private UUID id;
     private LocalDateTime appointmentDate;
-    private String status;
     private UUID doctorId;
     private UUID patientId;
 }

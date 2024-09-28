@@ -19,8 +19,6 @@ import java.util.UUID;
 public class Appointment extends BaseEntity<UUID> {
 
     private LocalDateTime appointmentDate;
-    private String status;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;

@@ -20,6 +20,7 @@ public class CreateAppointmentRequest {
     @NotNull(message = "Doctor ID cannot be empty")
     private UUID doctorId;
 
+
     @NotNull(message = "Patient ID cannot be empty")
     private UUID patientId;
 

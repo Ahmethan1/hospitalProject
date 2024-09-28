@@ -52,7 +52,9 @@ public class AppointmentManager implements AppointmentService {
 
         Appointment appointment = this.appointmentMapper.updateRequestAppointmentToAppointmentEntity(updateAppointmentRequest);
         appointment.setUpdatedDate(LocalDateTime.now());
-        return null;
+
+        Appointment savedAppointment = this.appointmentRepository.save(appointment);
+        return this.appointmentMapper.appointmentEntityToUpdatedAppointmentResponse(savedAppointment);
     }
 
     @Override

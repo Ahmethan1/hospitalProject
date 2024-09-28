@@ -16,7 +16,7 @@ public class UpdateAppointmentRequest {
     private UUID id;
     @NotNull(message = "Appointment date cannot be empty")
     private LocalDateTime appointmentDate;
-    private String status;
+
 
     @NotNull(message = "Doctor ID cannot be empty")
     private UUID doctorId;

@@ -20,7 +20,11 @@ public interface AppointmentMapper {
     @Mapping(source = "patient.id", target = "patientId")
     CreatedAppoinmentResponse appointmentEntityToCreatedAppointmentResponse(Appointment appointment);
 
+    @Mapping(source = "doctorId", target = "doctor.id")
+    @Mapping(source = "patientId", target = "patient.id")
     Appointment updateRequestAppointmentToAppointmentEntity(UpdateAppointmentRequest updateAppointmentRequest);
+    @Mapping(source = "doctor.id", target = "doctorId")
+    @Mapping(source = "patient.id", target = "patientId")
     UpdatedAppointmentResponse appointmentEntityToUpdatedAppointmentResponse(Appointment appointment);
 
 
